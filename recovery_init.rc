@@ -22,9 +22,9 @@ on init
     mount tmpfs tmpfs /tmp
     mount vfat /dev/block/nandi /emmc
     
-    write /sys/devices/virtual/bdi/179:0/read_ahead_kb 2048
-    write /sys/devices/virtual/bdi/7:0/read_ahead_kb 2048
-    write /sys/devices/virtual/bdi/93:0/read_ahead_kb 2048
+    write /sys/devices/virtual/bdi/179:0/read_ahead_kb 0
+    write /sys/devices/virtual/bdi/7:0/read_ahead_kb 0
+    write /sys/devices/virtual/bdi/93:0/read_ahead_kb 0
 
 on boot
 
@@ -56,7 +56,7 @@ on property:ro.debuggable=1
     write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
     write /sys/class/android_usb/android0/iProduct $ro.product.model
     write /sys/class/android_usb/android0/iSerial $ro.serialno
-    #start adbd
+    start adbd
     setprop service.adb.root 1
 
 # Restart adbd so it can run as root
