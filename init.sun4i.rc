@@ -10,7 +10,7 @@ on early-init
 	mkdir /mnt/usbhost1 0000 system system
 
 on fs
-    mount ext4 /dev/block/nandd /system wait ro
+    mount ext4 /dev/block/nandd /system wait rw
     mount ext4 /dev/block/nande /data wait noatime nosuid nodev
     mount ext4 /dev/block/nandh /cache wait noatime nosuid nodev
 
@@ -61,7 +61,6 @@ on post-fs-data
 service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
 	socket wpa_wlan0 dgram 660 wifi wifi
 	group wifi inet
-	disabled
 	oneshot
 
 service u3gmonitor /system/bin/u3gmonitor
@@ -72,24 +71,20 @@ service u3gmonitor /system/bin/u3gmonitor
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
 	class main
-    disabled
     oneshot    
 
 service iprenew_wlan0 /system/bin/dhcpcd -n
 	class main
-	disabled
 	oneshot
 
 service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
 	class main
-    disabled
     oneshot    
 
 service iprenew_eth0 /system/bin/dhcpcd -n
 	class main
-	disabled
 	oneshot
 
 service memsicd /system/bin/logwrapper /system/bin/memsicd
-   class troy
+   class main
    oneshot
